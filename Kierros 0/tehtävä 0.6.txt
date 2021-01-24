@@ -1,0 +1,17 @@
+title Tehtävä 0.6
+
+note over Selain:
+Käyttäjä kirjoittaa haluamansa tekstin ja painaa "Save"-nappia
+end note
+note over Selain:
+JavaScript-koodi hoitaa tiedoston lähettämisen JSON-muodossa palvelimelle.
+Koodi hakee sivustolta lomake-elementin ja luo sille tapahtumankäsittelijän lähettämään tiedostoja.
+Koodi estää lomakkeen oletusarvoiden lähetyksen. Tämän jälkeen koodi luo muistiinpanon ja piirtää
+ruudun siällön uudelleen siten, että lisätty muistiinpano on sivulla ja tämän jälkeen muistiinpano lähetetään palvelimelle.
+end note
+Selain->Palvelin: HTTP POST https://studies.cs.helsinki.fi/exampleapp/new_note_spa
+note over Palvelin
+Palvelin vastaa statuskoodilla 201 "Created".
+end note
+
+

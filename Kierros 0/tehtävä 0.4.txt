@@ -1,0 +1,27 @@
+title Tehtävä 0.4
+
+note over Selain:
+Käyttäjä kirjoittaa haluamansa tekstin ja painaa "Save"-nappia
+end note
+Selain->Palvelin: HTTP POST https://studies.cs.helsinki.fi/exampleapp/new_note
+note over Palvelin:
+Palvelin vastaa statuskoodilla 302 ja tekee uudelleenohjauspyynnön
+end note
+Palvelin-->Selain: Uudelleenohjauspyyntö osoitteeseen https://studies.cs.helsinki.fi/exampleapp/notes
+Selain->Palvelin: HTTP GET https://studies.cs.helsinki.fi/exampleapp/notes
+Palvelin-->Selain: HTML-koodi
+Selain->Palvelin: HTTP GET https://studies.cs.helsinki.fi/exampleapp/main.css
+Palvelin-->Selain: main.css
+Selain->Palvelin: HTTP GET https://studies.cs.helsinki.fi/exampleapp/main.js
+Palvelin-->Selain: main.js
+
+note over Selain:
+Selain alkaa suorittaa JavaScript-koodia, joka pyytää JSON-datan edelleen palvelimelta.
+end note
+
+Selain->Palvelin: HTTP GET https://studies.cs.helsinki.fi/exampleapp/data.json
+Palvelin-->Selain: JSON-tiedoston data
+
+note over Selain:
+Selain suorittaa tapahtumankäsittelijän, joka tekee muistiinpanot näytölle näkyviksi.
+end note
