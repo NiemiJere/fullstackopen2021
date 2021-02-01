@@ -11,14 +11,16 @@ const Button = ({ onClick, text }) => (
 const Statistics = (props) => {
   if (props.good + props.neutral + props.bad > 0) {
     return (
-      <div>
-        <StatisticLine text = "good" value = {props.good} />
-        <StatisticLine text = "neutral" value = {props.neutral} />
-        <StatisticLine text = "bad" value = {props.bad} />
-        <StatisticLine text = "all" value = {props.good + props.neutral + props.bad} />
-        <StatisticLine text = "positive" value = {[props.good, props.neutral, props.bad]} />
-        <StatisticLine text = "average" value = {[props.good, props.neutral, props.bad]} />
-      </div>
+      <table>
+        <tbody>
+          <StatisticLine text = "good" value = {props.good} />
+          <StatisticLine text = "neutral" value = {props.neutral} />
+          <StatisticLine text = "bad" value = {props.bad} />
+          <StatisticLine text = "all" value = {props.good + props.neutral + props.bad} />
+          <StatisticLine text = "positive" value = {[props.good, props.neutral, props.bad]} />
+          <StatisticLine text = "average" value = {[props.good, props.neutral, props.bad]} />
+        </tbody>
+      </table>
     )
   }
   else {
@@ -41,23 +43,23 @@ const Positive = (props) => {
 const StatisticLine = ({text, value}) => {
   if (text === "good" || text === "neutral" || text === "bad" || text === "all") {
     return (
-      <div>
-        {text} {value}
-      </div>
+      <tr>
+        <td>{text}</td><td>{value}</td>
+      </tr>
       )
   }
   else if (text === "positive") {
     return (
-      <div>
-        {text} {<Positive good = {value[0]} neutral = {value[1]} bad = {value[2]} />} %
-      </div>
+      <tr>
+        <td>{text}</td><td>{<Positive good = {value[0]} neutral = {value[1]} bad = {value[2]} />} %</td>
+      </tr>
     )
   }
   else {
     return (
-      <div>
-        {text} <Average good = {value[0]} neutral = {value[1]} bad = {value[2]} />
-      </div>
+      <tr>
+        <td>{text}</td><td><Average good = {value[0]} neutral = {value[1]} bad = {value[2]} /></td>
+      </tr>
     )
   }
 }
