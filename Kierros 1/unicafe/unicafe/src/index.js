@@ -8,6 +8,23 @@ const Button = ({ onClick, text }) => (
   </button>
 )
 
+const Average = (props) => {
+  if (props.bad + props.neutral + props.good === 0) {
+    return 0
+  }
+  else {
+    return ((props.good - props.bad) / (props.bad + props.neutral + props.good))
+  }
+}
+
+const Positive = (props) => {
+  if (props.bad + props.neutral + props.good === 0) {
+    return 0
+  }
+  else {
+    return ((props.good) / (props.bad + props.neutral + props.good) * 100)
+  }
+}
 
 const App = () => {
   // tallenna napit omaan tilaansa
@@ -24,7 +41,10 @@ const App = () => {
       <h1>statistics</h1>
       good {good} <br></br>
       neutral {neutral} <br></br>
-      bad {bad}
+      bad {bad} <br></br>
+      all {good + neutral + bad} <br></br>
+      average <Average good = {good} bad = {bad} neutral = {neutral} /> <br></br>
+      positive <Positive good = {good} bad = {bad} neutral = {neutral} /> %
     </div>
     
   )
