@@ -7,6 +7,7 @@ const App = (props) => {
   const [copy, setCopy] = useState(new Array(props.anecdotes.length).fill(0))
   return (
     <div>
+      <h1>Anecdote of the day</h1>
       {props.anecdotes[selected]} <br></br>
       has {copy[selected]} votes <br></br>
       <Button text="next anecdote" onClick={() => setSelected(Math.floor(Math.random() * props.anecdotes.length))}/>
@@ -15,11 +16,33 @@ const App = (props) => {
         palautusarvo[selected] += 1
         setCopy(palautusarvo)
        }
-      }  
+      }
       />
+      <h1>Anecdote with most votes</h1>
+      <Biggest copy = {[...copy]} anecdotes = {props.anecdotes}/>
     </div>
   )
 }
+
+
+const Biggest = (props) => {
+  let suurin = 0
+  var i;
+    for (i of props.copy) {
+    if (i > suurin) {
+      suurin = i
+    }
+  }
+  let indeksi = props.copy.indexOf(suurin)
+  return (
+    <div>
+      {props.anecdotes[indeksi]} <br></br>
+      has {suurin} votes
+    </div>
+    
+  )
+}
+
 
 const Button = ({ onClick, text }) => (
   <button onClick={onClick}>
