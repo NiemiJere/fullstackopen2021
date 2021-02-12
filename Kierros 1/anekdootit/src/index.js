@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom'
 
 const App = (props) => {
   const [selected, setSelected] = useState(0)
-  //console.log(points)
   const [copy, setCopy] = useState(new Array(props.anecdotes.length).fill(0))
   return (
     <div>
@@ -24,7 +23,6 @@ const App = (props) => {
   )
 }
 
-
 const Biggest = (props) => {
   let suurin = 0
   var i;
@@ -42,7 +40,6 @@ const Biggest = (props) => {
     
   )
 }
-
 
 const Button = ({ onClick, text }) => (
   <button onClick={onClick}>
