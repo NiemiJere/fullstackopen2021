@@ -1,23 +1,23 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Form from './Form.js'
 import Person from './Person.js'
 import Sort from './Sort.js'
-
-
+import axios from 'axios'
 
 const App = () => {
-  const [persons, setPersons] = useState([
-    { name: 'Arto Hellas', number: '040-123456' },
-    { name: 'Ada Lovelace', number: '39-44-5323523' },
-    { name: 'Dan Abramov', number: '12-43-234345' },
-    { name: 'Mary Poppendieck', number: '39-23-6423122' }
-  ])
+  const [persons, setPersons] = useState([])
   const [ newName, setNewName ] = useState('')
-  const [ newItem, setNewItem ] = useState(['Arto Hellas', 'Ada Lovelace', 'Dan Abramov', 'Mary Poppendieck'])
+  const [ newItem, setNewItem ] = useState([])
   const [newNumber, setNewNumber] = useState('')
   const [nameFind, setNameFind] = useState('')
 
-
+  useEffect(() => {
+    axios
+      .get('http://localhost:3001/persons')
+      .then(response => {
+        setPersons(response.data)
+      })
+    }, [])
 
   const addName = (event) => {
     event.preventDefault()
@@ -73,7 +73,7 @@ const App = () => {
       <h2>Phonebook</h2>
       <Sort 
         nameFind = {nameFind}
-        handleSearh = {handleSearch}/>
+        handleSearch = {handleSearch}/>
         <h2>Add a new</h2>
       <Form
         addName={addName} 

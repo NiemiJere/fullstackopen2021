@@ -1,9 +1,9 @@
 import React from 'react'
 
-const Sort = (props) => {
+const Sort = ({nameFind, handleSearch}) => {
     return (
         <div>
-            filter shown with <input value={props.nameFind} onChange={props.handleSearch}/>
+            filter shown with <input value={nameFind} onChange={handleSearch}/>
         </div>
     )
 }
