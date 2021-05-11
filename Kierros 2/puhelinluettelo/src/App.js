@@ -3,6 +3,7 @@ import Form from './Form.js'
 import Person from './Person.js'
 import Sort from './Sort.js'
 import axios from 'axios'
+import personHandle from './services/persons'
 
 const App = () => {
   const [persons, setPersons] = useState([])
@@ -12,8 +13,8 @@ const App = () => {
   const [nameFind, setNameFind] = useState('')
 
   useEffect(() => {
-    axios
-      .get('http://localhost:3001/persons')
+    personHandle
+      .getAll()
       .then(response => {
         setPersons(response.data)
       })
@@ -29,8 +30,8 @@ const App = () => {
         name: newName,
         number: newNumber
       }
-      axios
-        .post('http://localhost:3001/persons', personObject)
+      personHandle
+        .create(personObject)
         .then(response => {
           setPersons(persons.concat(personObject))
           setNewItem(newItem.concat(newName))
