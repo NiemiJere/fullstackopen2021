@@ -1,9 +1,10 @@
 import React from 'react'
+import personHandle from './services/persons'
 
-const Person = (props) => {
+const Person = ({ person, remove }) => {      
     return (
         <div>
-            {props.person.name} {props.person.number}
+            {person.name} {person.number} <button onClick = {remove}>Delete</button>
         </div>
     )
 }

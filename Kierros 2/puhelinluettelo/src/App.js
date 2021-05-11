@@ -64,9 +64,24 @@ const App = () => {
     }
   }
 
-    const personsToShow = showAll
-      ? persons
-      : persons.filter(person => person.name.toLowerCase().includes(nameFind.toLowerCase()))
+  const del = (person) => {
+    personHandle
+      .del(person.id)
+    personHandle
+      .getAll()
+      .then(response => {
+        if (window.confirm(`Delete ${person.name}?`)) {
+          setPersons(persons.filter(p => p.id !== person.id))
+        }
+      })
+
+    console.log("penis)")
+    personHandle.getAll(response => console.log(response.data))
+    }
+
+  const personsToShow = showAll
+    ? persons
+    : persons.filter(person => person.name.toLowerCase().includes(nameFind.toLowerCase()))
 
 
       // if (newItem[i].toLowerCase.includes(nameFind.toLowerCase)) {
@@ -88,7 +103,7 @@ const App = () => {
         handleNumberChange={handleNumberChange}/>
       <h2>Numbers</h2>
       {personsToShow.map(person =>
-        <Person key={person.name} person={person}/>
+        <Person key={person.name} person={person} remove={() => del(person)}/>
         )}
     </div>
   )
