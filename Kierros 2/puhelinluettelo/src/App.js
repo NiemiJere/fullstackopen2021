@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react'
 import Form from './Form.js'
 import Person from './Person.js'
 import Sort from './Sort.js'
-import axios from 'axios'
 import personHandle from './services/persons'
+import Notification from './Notification'
 
 const App = () => {
   const [persons, setPersons] = useState([])
@@ -11,6 +11,9 @@ const App = () => {
   const [ newItem, setNewItem ] = useState([])
   const [newNumber, setNewNumber] = useState('')
   const [nameFind, setNameFind] = useState('')
+  const [errorMes, setErrorMes] = useState(null)
+
+
 
   useEffect(() => {
     personHandle
@@ -23,7 +26,10 @@ const App = () => {
   const addName = (event) => {
     event.preventDefault()
     if (newItem.includes(newName)) {
-      alert(`${newName} is already added to phonebook`)
+      setErrorMes(`${newName} is already added to phonebook`)
+      setTimeout(() => {
+        setErrorMes(null)
+      }, 5000)
     }
     else {
       const personObject = {
@@ -35,7 +41,12 @@ const App = () => {
         .then(response => {
           setPersons(persons.concat(personObject))
           setNewItem(newItem.concat(newName))
-        })
+          setErrorMes(`Added ${personObject.name}`)
+          setTimeout (() => {
+            setErrorMes(null)
+          }, 5000)
+          })
+
     }
     setNewName('')
     setNewNumber('')
@@ -72,6 +83,10 @@ const App = () => {
       .then(response => {
         if (window.confirm(`Delete ${person.name}?`)) {
           setPersons(persons.filter(p => p.id !== person.id))
+          setErrorMes(`Deleted ${person.name}`)
+          setTimeout (() => {
+            setErrorMes(null)
+          }, 5000)
         }
       })
 
@@ -91,10 +106,12 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
+      <Notification message={errorMes}/>
       <Sort 
         nameFind = {nameFind}
         handleSearch = {handleSearch}/>
         <h2>Add a new</h2>
+
       <Form
         addName={addName} 
         newName={newName}
