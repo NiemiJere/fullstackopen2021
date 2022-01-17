@@ -2,7 +2,7 @@ const Notification = ({ message }) => {
     if (message === null) {
         return null
     }
-    else if (message.includes("Added")) {
+    else if (message.includes("Added") || (message.includes("Updated"))) {
         return (
             <div className = "success">
                 {message}

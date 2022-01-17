@@ -13,8 +13,6 @@ const App = () => {
   const [nameFind, setNameFind] = useState('')
   const [errorMes, setErrorMes] = useState(null)
 
-
-
   useEffect(() => {
     personHandle
       .getAll()
@@ -25,11 +23,41 @@ const App = () => {
 
   const addName = (event) => {
     event.preventDefault()
-    if (newItem.includes(newName)) {
-      setErrorMes(`${newName} is already added to phonebook`)
-      setTimeout(() => {
-        setErrorMes(null)
-      }, 5000)
+    // if (newItem.includes(newName)) {
+    //   setErrorMes(`${newName} is already added to phonebook`)
+    //   setTimeout(() => {
+    //     setErrorMes(null)
+    //   }, 5000)
+    // }
+    let toggle = false
+    let id = "" 
+
+    persons.forEach(person => {
+      if (person.name === newName) {
+        toggle = true
+        id = person.id
+      }
+    })
+    
+    if (toggle) {
+     if (window.confirm(`${newName} is already added to phonebook, replace the old number with a new one?`)) {
+      const personObject = {
+        name: newName,
+        number: newNumber,
+        id: id
+      }
+      personHandle
+        .update(id, personObject)
+        .then(response => {
+          toggle = false
+          setPersons(persons.map(person => person.name !== newName ? person : personObject))
+          setNewItem(newItem.concat(newName))
+          setErrorMes(`Updated ${personObject.name}`)
+          setTimeout (() => {
+            setErrorMes(null)
+          }, 5000)
+          })
+      }
     }
     else {
       const personObject = {
@@ -45,7 +73,14 @@ const App = () => {
           setTimeout (() => {
             setErrorMes(null)
           }, 5000)
-          })
+        })
+        .catch(error => {
+          console.log(error.response.data)
+          setErrorMes(`${error.response.data.error}`)
+          setTimeout (() => {
+            setErrorMes(null)
+          }, 5000)
+        })
 
     }
     setNewName('')
@@ -77,11 +112,11 @@ const App = () => {
 
   const del = (person) => {
     personHandle
-      .del(person.id)
-    personHandle
       .getAll()
       .then(response => {
         if (window.confirm(`Delete ${person.name}?`)) {
+          personHandle
+          .del(person.id)
           setPersons(persons.filter(p => p.id !== person.id))
           setErrorMes(`Deleted ${person.name}`)
           setTimeout (() => {
@@ -90,7 +125,6 @@ const App = () => {
         }
       })
 
-    console.log("penis)")
     personHandle.getAll(response => console.log(response.data))
     }
 
