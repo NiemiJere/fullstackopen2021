@@ -1,0 +1,10 @@
+DELETE http://localhost:3003/api/blogs/61e9c112b26e5ae24aad5a1b
+Content-Type: application/json 
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InJvb3QiLCJpZCI6IjYxZTliZTc0MDlkNjU3ZmYyNDM4YWE3ZCIsImlhdCI6MTY0MjcxMDM4OX0.VhlzyBbfUwiyTKgAwfFRgs4JBSu4LmsPO5eSCX351LU
+
+{
+    "title": "Onpas tämä mongo jännä",
+    "author": "Jussi",
+    "url": "www.trinode.fi",
+    "likes": 11
+}
