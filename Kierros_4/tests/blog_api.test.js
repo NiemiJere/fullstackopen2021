@@ -58,6 +58,11 @@ expect(blogs[blogs.length - 1].likes).toBe(0)
 })
 
 describe('empty fields', () => {
+
+  beforeEach(async () => {
+    await Blog.deleteMany({})
+  })
+
   test('if title is empty, status should be 400', async () => {
     const newBlog = {
         "title": "",
